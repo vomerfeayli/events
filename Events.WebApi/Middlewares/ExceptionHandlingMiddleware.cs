@@ -34,6 +34,8 @@ namespace Events.WebApi.Middlewares
 
             var exceptionDetails = ex.GetExceptionDetails();
 
+            context.Response.StatusCode = (int)exceptionDetails.StatusCode;
+
             await context.Response.WriteAsJsonAsync(
                 new ProblemDetails
                 {

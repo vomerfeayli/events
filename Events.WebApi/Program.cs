@@ -9,6 +9,11 @@ namespace Events.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
+
             builder.Services.AddServices();
 
             builder.Services.AddControllers();
