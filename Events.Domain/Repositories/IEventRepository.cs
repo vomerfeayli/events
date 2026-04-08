@@ -6,7 +6,10 @@ namespace Events.Domain.Repositories
     {
         public Event Get(Guid id);
 
-        public IReadOnlyCollection<Event> Get();
+        public IReadOnlyCollection<Event> Get(
+            string title,
+            DateTime? from,
+            DateTime? to);
 
         public void Save(Event @event);
 

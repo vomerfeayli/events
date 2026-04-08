@@ -28,9 +28,12 @@ namespace Events.Application.Services
                 @event.EndAt);
         }
 
-        public IReadOnlyCollection<EventDto> GetEvents()
+        public IReadOnlyCollection<EventDto> GetEvents(GetEventsDto dto)
         {
-            var events = _repository.Get();
+            var events = _repository.Get(
+                dto.Title,
+                dto.From,
+                dto.To);
 
             return events.Select(x =>
                 new EventDto(

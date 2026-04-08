@@ -13,9 +13,29 @@ namespace Events.Persistence.Repositories
                    ?? throw new KeyNotFoundException($"Event with id {id} not found");
         }
 
-        public IReadOnlyCollection<Event> Get()
+        public IReadOnlyCollection<Event> Get(
+            string title,
+            DateTime? from,
+            DateTime? to)
         {
-            return _events.AsReadOnly();
+            var query = _events.AsEnumerable();
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(x => x.Title == title);
+            }
+
+            if (from != null)
+            {
+                query = query.Where(x => x.StartAt >= from);
+            }
+
+            if (to != null)
+            {
+                query = query.Where(x => x.EndAt <= to);
+            }
+
+            return query.ToList();
         }
 
         public void Save(Event @event)
