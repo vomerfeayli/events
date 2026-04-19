@@ -4,7 +4,7 @@ namespace Events.Application.Services.Interfaces
 {
     public interface IEventService
     {
-        IReadOnlyCollection<EventDto> GetEvents(GetEventsDto dto);
+        PagedResult<EventDto> GetEvents(GetEventsDto dto);
 
         EventDto GetEvent(Guid id);
 

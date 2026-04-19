@@ -14,6 +14,8 @@ namespace Events.Persistence.Repositories
         }
 
         public IReadOnlyCollection<Event> Get(
+            int page,
+            int pageSize,
             string title,
             DateTime? from,
             DateTime? to)
@@ -35,7 +37,10 @@ namespace Events.Persistence.Repositories
                 query = query.Where(x => x.EndAt <= to);
             }
 
-            return query.ToList();
+            return query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
 
         public void Save(Event @event)
@@ -68,5 +73,8 @@ namespace Events.Persistence.Repositories
 
             _events.Remove(@event);
         }
+
+        public int GetEventsCount()
+            => _events.Count;
     }
 }
