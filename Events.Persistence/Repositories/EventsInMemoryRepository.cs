@@ -74,7 +74,29 @@ namespace Events.Persistence.Repositories
             _events.Remove(@event);
         }
 
-        public int GetEventsCount()
-            => _events.Count;
+        public int GetEventsCount(
+            string title = null,
+            DateTime? from = null,
+            DateTime? to = null)
+        {
+            var query = _events.AsEnumerable();
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(x => x.Title == title);
+            }
+
+            if (from != null)
+            {
+                query = query.Where(x => x.StartAt >= from);
+            }
+
+            if (to != null)
+            {
+                query = query.Where(x => x.EndAt <= to);
+            }
+
+            return query.Count();
+        }
     }
 }

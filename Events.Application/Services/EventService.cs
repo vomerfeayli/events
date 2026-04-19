@@ -39,6 +39,11 @@ namespace Events.Application.Services
                 dto.From,
                 dto.To);
 
+            var eventsCount = _repository.GetEventsCount(
+                dto.Title,
+                dto.From,
+                dto.To);
+
             return new PagedResult<EventDto>(
                 events
                     .Select(x =>
@@ -50,8 +55,8 @@ namespace Events.Application.Services
                             x.EndAt))
                     .ToList(),
                 dto.Page,
-                _repository.GetEventsCount(),
-                10);
+                (int)Math.Ceiling((double)eventsCount / dto.PageSize),
+                eventsCount);
         }
 
         public Guid CreateEvent(CreateEventDto dto)

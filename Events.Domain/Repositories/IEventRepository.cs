@@ -24,6 +24,9 @@ namespace Events.Domain.Repositories
 
         public void Delete(Guid id);
 
-        public int GetEventsCount();
+        public int GetEventsCount(
+            string title = null,
+            DateTime? from = null,
+            DateTime? to = null);
     }
 }

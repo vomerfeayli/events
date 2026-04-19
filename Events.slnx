@@ -2,5 +2,6 @@
   <Project Path="Events.Application/Events.Application.csproj" />
   <Project Path="Events.Domain/Events.Domain.csproj" />
   <Project Path="Events.Persistence/Events.Persistence.csproj" Id="a7d34966-0960-48ff-804c-fb2620fd5dba" />
+  <Project Path="Events.Tests/Events.Tests.csproj" Id="fb601ba3-1d93-431e-93ff-0c3d1f9647e0" />
   <Project Path="Events.WebApi/Events.WebApi.csproj" />
 </Solution>
