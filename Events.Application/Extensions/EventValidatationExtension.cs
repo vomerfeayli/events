@@ -40,14 +40,14 @@ namespace Events.Application.Extensions
         {
             var errorMessages = new Dictionary<string, string>();
 
-            if (dto.Page < 0)
+            if (dto.Page < 1)
             {
-                errorMessages.Add(nameof(dto.Page), "Page number cannot be negative");
+                errorMessages.Add(nameof(dto.Page), "Page number cannot be negative or equal to zero");
             }
 
-            if (dto.PageSize < 0)
+            if (dto.PageSize < 1)
             {
-                errorMessages.Add(nameof(dto.PageSize), "Page size cannot be negative");
+                errorMessages.Add(nameof(dto.PageSize), "Page size cannot be negative or equal to zero");
             }
 
             if (errorMessages.Count != 0)

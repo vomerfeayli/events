@@ -24,7 +24,7 @@ namespace Events.Persistence.Repositories
 
             if (!string.IsNullOrEmpty(title))
             {
-                query = query.Where(x => x.Title == title);
+                query = query.Where(x => x.Title.ToUpper().Contains(title.ToUpper()));
             }
 
             if (from != null)
@@ -83,7 +83,7 @@ namespace Events.Persistence.Repositories
 
             if (!string.IsNullOrEmpty(title))
             {
-                query = query.Where(x => x.Title == title);
+                query = query.Where(x => x.Title.ToUpper().Contains(title.ToUpper()));
             }
 
             if (from != null)
