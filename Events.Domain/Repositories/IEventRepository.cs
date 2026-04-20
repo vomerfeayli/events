@@ -6,7 +6,12 @@ namespace Events.Domain.Repositories
     {
         public Event Get(Guid id);
 
-        public IReadOnlyCollection<Event> Get();
+        public IReadOnlyCollection<Event> Get(
+            int page,
+            int pageSize,
+            string title = null,
+            DateTime? from = null,
+            DateTime? to = null);
 
         public void Save(Event @event);
 
@@ -18,5 +23,10 @@ namespace Events.Domain.Repositories
             DateTime endAt);
 
         public void Delete(Guid id);
+
+        public int GetEventsCount(
+            string title = null,
+            DateTime? from = null,
+            DateTime? to = null);
     }
 }

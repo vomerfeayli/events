@@ -1,6 +1,12 @@
 Для запуска выполнить:
 ```
+dotnet restore
+```
+```
 dotnet build
+```
+```
+dotnet test
 ```
 ```
 dotnet run --project Events.WebApi --launch-profile https
@@ -14,3 +20,8 @@ dotnet run --project Events.WebApi --launch-profile https
 Swagger доступен по этим адресам:  
 [https://localhost:7262/swagger](https://localhost:7262/swagger)  
 [http://localhost:5033/swagger](http://localhost:5033/swagger)  
+
+В методе GET /events есть фильтрация:
+- Title — фильтр по названию
+- From — минимальная дата начала события
+- To — максимальная дата окончания события

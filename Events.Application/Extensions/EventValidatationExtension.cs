@@ -1,4 +1,5 @@
-﻿using Events.Application.Models.Interfaces;
+﻿using Events.Application.Models.Dtos;
+using Events.Application.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Events.Application.Extensions
@@ -29,14 +30,40 @@ namespace Events.Application.Extensions
                 errorMessages.Add(nameof(dto.EndAt), "End date must be later than start date");
             }
 
-            if (errorMessages.Any())
+            if (errorMessages.Count != 0)
             {
-                throw new ValidationException(
-                    string.Join(
-                        ", ",
-                        errorMessages.Select(
-                            x => $"{x.Key}: {x.Value}")));
+                errorMessages.Throw();
             }
+        }
+
+        internal static void ValidateOrThrow(this GetEventsDto dto)
+        {
+            var errorMessages = new Dictionary<string, string>();
+
+            if (dto.Page < 1)
+            {
+                errorMessages.Add(nameof(dto.Page), "Page number cannot be negative or equal to zero");
+            }
+
+            if (dto.PageSize < 1)
+            {
+                errorMessages.Add(nameof(dto.PageSize), "Page size cannot be negative or equal to zero");
+            }
+
+            if (errorMessages.Count != 0)
+            {
+                errorMessages.Throw();
+            }
+        }
+
+        private static void Throw(
+            this Dictionary<string, string> errorMessages)
+        {
+            throw new ValidationException(
+                string.Join(
+                    ", ",
+                    errorMessages.Select(
+                        x => $"{x.Key}: {x.Value}")));
         }
     }
 }

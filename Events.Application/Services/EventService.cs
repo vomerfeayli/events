@@ -28,18 +28,35 @@ namespace Events.Application.Services
                 @event.EndAt);
         }
 
-        public IReadOnlyCollection<EventDto> GetEvents()
+        public PagedResult<EventDto> GetEvents(GetEventsDto dto)
         {
-            var events = _repository.Get();
+            dto.ValidateOrThrow();
 
-            return events.Select(x =>
-                new EventDto(
-                    x.Id,
-                    x.Title,
-                    x.Description,
-                    x.StartAt,
-                    x.EndAt))
-                .ToList();
+            var events = _repository.Get(
+                dto.Page,
+                dto.PageSize,
+                dto.Title,
+                dto.From,
+                dto.To);
+
+            var eventsCount = _repository.GetEventsCount(
+                dto.Title,
+                dto.From,
+                dto.To);
+
+            return new PagedResult<EventDto>(
+                events
+                    .Select(x =>
+                        new EventDto(
+                            x.Id,
+                            x.Title,
+                            x.Description,
+                            x.StartAt,
+                            x.EndAt))
+                    .ToList(),
+                dto.Page,
+                (int)Math.Ceiling((double)eventsCount / dto.PageSize),
+                eventsCount);
         }
 
         public Guid CreateEvent(CreateEventDto dto)

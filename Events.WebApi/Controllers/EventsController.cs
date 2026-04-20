@@ -17,9 +17,10 @@ namespace Events.WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(
+            [FromQuery] GetEventsDto dto)
         {
-            return Ok(_events.GetEvents());
+            return Ok(_events.GetEvents(dto));
         }
 
         [HttpGet("{id:guid}")]
